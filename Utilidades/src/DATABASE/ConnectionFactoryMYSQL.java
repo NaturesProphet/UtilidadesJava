@@ -23,7 +23,7 @@ import java.sql.DriverManager;
  *
  * @author mgarcia
  */
-public class ConnectionFactory {
+public class ConnectionFactoryMYSQL {
 
     /*
     *   Esta classe se encarrega de abrir e entregar as conexões com
