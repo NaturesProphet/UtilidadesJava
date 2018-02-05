@@ -66,7 +66,7 @@ public class Arquivo {
 
     //retorna uma linha no arquivo que comece com a String informada.
     //a string retornada começa depois do final + 1 espaço do codigo
-    public static String getLineByCod(String patch, String codigo)
+    public static String getLineByCode(String patch, String codigo)
             throws FileNotFoundException, IOException, Exception {
         BufferedReader br = new BufferedReader(new FileReader(patch));
         String linha; //linha atual de cada iteração
