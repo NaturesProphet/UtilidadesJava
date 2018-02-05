@@ -72,10 +72,8 @@ public class Arquivo {
             String linha;
             Scanner scan = new Scanner(br);
             while (scan.hasNextLine()) {
-                if (null != scan.nextLine()) {
-                    linha = scan.nextLine();
-                    dados.add(linha);
-                }
+                linha = scan.nextLine();
+                dados.add(linha);
             }
             br.close();
             scan.close();
@@ -162,9 +160,19 @@ public class Arquivo {
 
     }
 
-    public static void main(String[] args) {
-        //testes aqui
+    //adiciona uma linha no começo do arquivo
+    public static void AddThisLineAtBOF(String path, String texto) throws IOException {
+        if (AreYouHere(path)) {
+            ArrayList<String> conteudoanterior = getAllLines(path);
+            setFileContent(path, texto);
+            for (int i = 0; i < conteudoanterior.size(); i++) {
+                AddThisLineAtEOF(path, conteudoanterior.get(i));
+            }
 
+        } else {
+            throw new FileNotFoundException("O programa buscou por um arquivo "
+                    + "que não foi encontrado no local especificado");
+        }
     }
 
 }
