@@ -35,7 +35,7 @@ import java.util.logging.Logger;
 public class Arquivo {
 
     //lê a primeira linha de um arquivo informado pelo parâmetro
-    public static String ler(String path) throws IOException {
+    public static String getFirstLine(String path) throws IOException {
         BufferedReader buffRead = new BufferedReader(new FileReader(path));
         String linha = buffRead.readLine();
         buffRead.close();
@@ -43,7 +43,7 @@ public class Arquivo {
     }
 
     //escreve o conteúdo da String no arquivo, informados via parâmetro
-    public static void escrever(String path, String content)
+    public static void setFileContent(String path, String content)
             throws IOException {
         BufferedWriter buffWrite = new BufferedWriter(new FileWriter(path));
         buffWrite.append(content + "\n");
@@ -52,7 +52,7 @@ public class Arquivo {
 
     //este método lê as linhas de um arquivo e retorna uma lista de Strings
     //recebe o caminho para o arquivo como parâmetro
-    public static ArrayList<String> LeArquivo(String patch)
+    public static ArrayList<String> getAllLines(String patch)
             throws FileNotFoundException, IOException {
         ArrayList<String> dados = new ArrayList();
         BufferedReader br = new BufferedReader(new FileReader(patch));
