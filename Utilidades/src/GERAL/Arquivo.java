@@ -31,8 +31,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Arquivo {
 
@@ -67,6 +65,7 @@ public class Arquivo {
             }
         }
         br.close();
+        scan.close();
         return dados;
     }
 
@@ -96,6 +95,7 @@ public class Arquivo {
             }
         }
         br.close();
+        scan.close();
         if (contador == 0) {
             return null;
         } else {
@@ -110,6 +110,29 @@ public class Arquivo {
     public static boolean AreYouHere(String patch) {
         File file = new File(patch);
         return file.exists();
+    }
+
+    //verifica o primeiro caractere encontrado na linha
+    //util para mecanismos de comentario em arquivo, para que o sistema
+    //ignore as linhas que começam com um determinado caractere, 
+    //como o '#', no caso do linux
+    public static boolean IsAComent(String linha, char coment) {
+        for (int i = 0; i < linha.length(); i++) {
+            if (linha.charAt(i) != ' ') {
+                return linha.charAt(i) == coment;
+            }
+        }
+        return false;
+    }
+
+    //adiciona uma linha especificada no final do arquivo especificado
+    public static void AddThisLineAtEOF(String path, String texto) throws IOException {
+        FileWriter fw = new FileWriter(path, true);
+        BufferedWriter bw = new BufferedWriter(fw);
+        bw.write(texto);
+        bw.newLine();
+        bw.close();
+
     }
 
     public static void main(String[] args) {
