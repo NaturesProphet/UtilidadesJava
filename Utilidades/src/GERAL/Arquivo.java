@@ -30,6 +30,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Arquivo {
 
@@ -56,8 +59,12 @@ public class Arquivo {
         ArrayList<String> dados = new ArrayList();
         BufferedReader br = new BufferedReader(new FileReader(patch));
         String linha;
-        while ((linha = br.readLine()) != null) {
-            dados.add(linha);
+        Scanner scan = new Scanner(br);
+        while (scan.hasNextLine()) {
+            if (null != scan.nextLine()) {
+                linha = scan.nextLine();
+                dados.add(linha);
+            }
         }
         br.close();
         return dados;
@@ -71,8 +78,10 @@ public class Arquivo {
         String linha; //linha atual de cada iteração
         int contador = 0; //total de ocorrências do codigo
         String saida = ""; //string que será retornada
+        Scanner scan = new Scanner(br);
 
-        while ((linha = br.readLine()) != null) {
+        while (scan.hasNextLine()) {
+            linha = scan.nextLine();
             if (linha.indexOf(codigo) != -1) {
                 if (contador > 0) { // se houver mais de uma ocorrência
                     br.close();
@@ -101,6 +110,10 @@ public class Arquivo {
     public static boolean AreYouHere(String patch) {
         File file = new File(patch);
         return file.exists();
+    }
+
+    public static void main(String[] args) {
+        //testes aqui
     }
 
 }
