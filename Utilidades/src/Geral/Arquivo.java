@@ -29,8 +29,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Arquivo {
 
@@ -92,6 +90,8 @@ public class Arquivo {
             return null;
         } else {
             saida = saida.substring(codigo.length() + 1, saida.length());
+            //corta a substring desde o final do codigo mais 1 ate o final.
+            // o +1 serve para pular o espaço vazio após o codigo
             return saida;
         }
     }
