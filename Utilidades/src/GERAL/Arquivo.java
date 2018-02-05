@@ -38,9 +38,7 @@ public class Arquivo {
     *   Classe que fornece utilidades para manipulação de arquivos de texto puro
     *   Autor: Mateus Garcia
     *   github.com/NaturesProphet
-    */
-    
-    
+     */
     //lê a primeira linha de um arquivo informado pelo parâmetro
     public static String getFirstLine(String path) throws IOException {
         if (AreYouHere(path)) {
@@ -131,6 +129,28 @@ public class Arquivo {
         }
     }
 
+    // configura o texto de uma linha que comece com o codigo informado
+    // oposto do método acima ^
+    public static void setLineByCode(String path, String Code) throws IOException {
+        if (AreYouHere(path)) {
+            ArrayList<String> AllLines = getAllLines(path);
+            for (int i = 0; i < AllLines.size(); i++) {
+                String LinhaAtual = AllLines.get(i);
+                for (int z = 0; z < LinhaAtual.length(); z++) {
+                    if (!IsAComent(LinhaAtual, '#')) {
+                        /*poupando processamento deixando de varrer 
+                        linhas comentadas*/
+
+                    }
+                }
+            }
+
+        } else {
+            throw new FileNotFoundException("O programa buscou por um arquivo "
+                    + "que não foi encontrado no local especificado");
+        }
+    }
+
     //verifica se o arquivo especificado existe
     public static boolean AreYouHere(String patch) {
         File file = new File(patch);
@@ -178,6 +198,29 @@ public class Arquivo {
             throw new FileNotFoundException("O programa buscou por um arquivo "
                     + "que não foi encontrado no local especificado");
         }
+    }
+
+    //este método retorna a primeira string sem espaços encontrada numa linha
+    public static String getFirstStringFromLine(String linha) {
+        if (!linha.isEmpty()) {
+            StringBuilder sb = new StringBuilder(10);
+            boolean PrimeiroEspaco = true;
+            for (int i = 0; i < linha.length(); i++) {
+                if (linha.charAt(i) == ' ' && PrimeiroEspaco) {
+                    continue;
+                } else {
+                    PrimeiroEspaco = false;
+                }
+                if (!PrimeiroEspaco) {
+                    if (linha.charAt(i) != ' ') {
+                        sb.append(linha.charAt(i));
+                    } else {
+                        return sb.toString();
+                    }
+                }
+            }
+        }
+        return ""; //se a linha for vazia retorna nada
     }
 
 }
