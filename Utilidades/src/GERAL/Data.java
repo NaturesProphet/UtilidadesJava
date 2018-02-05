@@ -64,6 +64,12 @@ public class Data {
         SimpleDateFormat dmy = new SimpleDateFormat("dd/MM/yyyy");
         return dmy.parse(d);
     }
+    
+    //devolve um java.util.Date pela string parão US fornecida
+    public static Date getDataFromStringYMD(String d) throws ParseException {
+        SimpleDateFormat dmy = new SimpleDateFormat("yyyy-MM-dd");
+        return dmy.parse(d);
+    }
 
     //retorna o horario simples do momento em que foi invocado o método
     public static String getHora() {
