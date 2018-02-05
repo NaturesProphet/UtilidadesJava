@@ -31,6 +31,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Arquivo {
 
@@ -53,7 +55,7 @@ public class Arquivo {
     }
 
     //escreve o conteúdo da String no arquivo, informados via parâmetro
-    public static void setFileContent(String path, String content)
+    public static void setFileContentAsSingleLine(String path, String content)
             throws IOException {
         if (AreYouHere(path)) {
             BufferedWriter buffWrite = new BufferedWriter(new FileWriter(path));
@@ -131,20 +133,32 @@ public class Arquivo {
 
     // configura o texto de uma linha que comece com o codigo informado
     // oposto do método acima ^
-    public static void setLineByCode(String path, String Code) throws IOException {
+    public static void setLineByCode(String path, String Code, String insert) throws IOException {
         if (AreYouHere(path)) {
-            ArrayList<String> AllLines = getAllLines(path);
-            for (int i = 0; i < AllLines.size(); i++) {
-                String LinhaAtual = AllLines.get(i);
-                for (int z = 0; z < LinhaAtual.length(); z++) {
-                    if (!IsAComent(LinhaAtual, '#')) {
-                        /*poupando processamento deixando de varrer 
-                        linhas comentadas*/
 
+            ArrayList<String> AllLines = getAllLines(path);
+            boolean IsRedundant = false;
+
+            for (int i = 0; i < AllLines.size(); i++) {
+                if (IsAComent(AllLines.get(i), '#')) {
+                    continue;
+                } else {
+                    if (Code.equals(getFirstStringFromLine(AllLines.get(i)))) {
+                        if (!IsRedundant) {
+                            AllLines.set(i, Code + " " + insert);
+                            IsRedundant = true;
+                        } else {
+                            throw new IOException("O programa tentou alterar"
+                                    + " uma linha do arquivo " + path
+                                    + " mas o codigo " + Code + " foi encontrado"
+                                    + "mais de uma vez, causando um conflito"
+                                    + "Por segurança, nenhuma "
+                                    + "alteração foi feita.");
+                        }
                     }
                 }
             }
-
+            OverWrite(path, AllLines);
         } else {
             throw new FileNotFoundException("O programa buscou por um arquivo "
                     + "que não foi encontrado no local especificado");
@@ -189,7 +203,7 @@ public class Arquivo {
     public static void AddThisLineAtBOF(String path, String texto) throws IOException {
         if (AreYouHere(path)) {
             ArrayList<String> conteudoanterior = getAllLines(path);
-            setFileContent(path, texto);
+            setFileContentAsSingleLine(path, texto);
             for (int i = 0; i < conteudoanterior.size(); i++) {
                 AddThisLineAtEOF(path, conteudoanterior.get(i));
             }
@@ -202,8 +216,8 @@ public class Arquivo {
 
     //este método retorna a primeira string sem espaços encontrada numa linha
     public static String getFirstStringFromLine(String linha) {
+        StringBuilder sb = new StringBuilder(10);
         if (!linha.isEmpty()) {
-            StringBuilder sb = new StringBuilder(10);
             boolean PrimeiroEspaco = true;
             for (int i = 0; i < linha.length(); i++) {
                 if (linha.charAt(i) == ' ' && PrimeiroEspaco) {
@@ -220,7 +234,19 @@ public class Arquivo {
                 }
             }
         }
-        return ""; //se a linha for vazia retorna nada
+        return sb.toString(); //se a linha for vazia retorna nada
     }
 
+    //metodo para sobreescrever um arquivo com a lista de strings informada
+    public static void OverWrite(String path, ArrayList<String> Content) throws IOException {
+        if (AreYouHere(path)) {
+            setFileContentAsSingleLine(path, Content.get(0));
+            for (int i = 1; i < Content.size(); i++) {
+                AddThisLineAtEOF(path, Content.get(i));
+            }
+        } else {
+            throw new FileNotFoundException("O programa buscou por um arquivo "
+                    + "que não foi encontrado no local especificado");
+        }
+    }
 }
