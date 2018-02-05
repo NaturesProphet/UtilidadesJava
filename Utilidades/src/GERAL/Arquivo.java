@@ -31,11 +31,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Arquivo {
 
+    /*
+    *   Classe que fornece utilidades para manipulação de arquivos de texto puro
+    *   Autor: Mateus Garcia
+    *   github.com/NaturesProphet
+    */
+    
+    
     //lê a primeira linha de um arquivo informado pelo parâmetro
     public static String getFirstLine(String path) throws IOException {
         if (AreYouHere(path)) {

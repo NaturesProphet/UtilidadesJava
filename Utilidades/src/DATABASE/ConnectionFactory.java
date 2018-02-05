@@ -28,7 +28,11 @@ public class ConnectionFactory {
     /*
     *   Esta classe se encarrega de abrir e entregar as conexões com
     *   o banco de dados MySQL para a aplicação
+    *   Autor: Mateus Garcia
+    *   github.com/NaturesProphet
     */
+    
+    
     private final String host = "seu_ip"; //INSIRA O IP DO BANCO
     private final int port = 0000; //INSIRA A PORTA (MySQL padrão = 3306)
     private final String user = "usuario"; //INSIRA O USUAIRO DO BANCO

@@ -32,8 +32,11 @@ public class Data {
     *   java.sql.Date e java.util.Date, fornecendo métodos fáceis para
     *   transformação de datas em strings em formatos pré determinados
     *   ou o inverso, transformar strings formatadas em data.
-     */
-
+    *   Autor: Mateus Garcia
+    *   github.com/NaturesProphet
+    */
+    
+    
     //devolve uma string formatada no padrão brasileiro
     public static String getDataAsStringBR(Date d) {
         SimpleDateFormat dmy = new SimpleDateFormat("dd/MM/yyyy");
