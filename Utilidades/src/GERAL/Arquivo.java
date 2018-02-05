@@ -24,6 +24,7 @@ package GERAL;
  */
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -95,4 +96,11 @@ public class Arquivo {
             return saida;
         }
     }
+
+    //verifica se o arquivo especificado existe
+    public static boolean AreYouHere(String patch) {
+        File file = new File(patch);
+        return file.exists();
+    }
+
 }
