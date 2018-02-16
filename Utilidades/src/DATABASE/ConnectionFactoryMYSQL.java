@@ -21,26 +21,38 @@ import java.sql.DriverManager;
 
 /**
  *
+ * Esta classe se encarrega de abrir e entregar as conexões com o banco de dados
+ * MySQL para a aplicação<br>
+ * Autor: Mateus Garcia<br>
+ * github.com/NaturesProphet
+ *
  * @author mgarcia
  */
 public class ConnectionFactoryMYSQL {
 
-    /*
-    *   Esta classe se encarrega de abrir e entregar as conexões com
-    *   o banco de dados MySQL para a aplicação
-    *   Autor: Mateus Garcia
-    *   github.com/NaturesProphet
-    */
-    
-    
     private final String host = "seu_ip"; //INSIRA O IP DO BANCO
     private final int port = 0000; //INSIRA A PORTA (MySQL padrão = 3306)
-    private final String user = "usuario"; //INSIRA O USUAIRO DO BANCO
+    private final String user = "usuario"; //INSIRA O USUARIO DO BANCO
     private final String password = "senha"; // INSIRA A SENHA DO BANCO
     private final String db = "Schema"; //Nome do Schema.
-    //não encoste nessa linha abaixo.. sério.
+
+    /* não encoste, não olhe, nem pense sobre esta linha abaixo...
+    *  De preferência, leia-a com os olhos fechados.
+     */
     private final String url = "jdbc:mysql://" + host + ":" + port + "/" + db;
 
+    /**
+     * Este método cria uma conexão com o Servidor MySQL, mas não a fecha.
+     * Lembre-se de sempre fechar esta conexão manualmente ao terminar de
+     * utiliza-la. O funcionamento correto deste método DEPENDE DO CONNECTOR
+     * .jar para Java do MySQL adicionado as bibliotecas da aplicação<br>
+     * Utilize este método para abrir uma conexão com o banco de dados.
+     *
+     * @author mgarcia
+     * @return Objeto java.sql.Connection capaz de se comunicar com o servidor.
+     * Pode retornar NULL se a configuração da URL estiver errada ou o servidor
+     * estiver offline
+     */
     public Connection getConnection() {
 
         try {
