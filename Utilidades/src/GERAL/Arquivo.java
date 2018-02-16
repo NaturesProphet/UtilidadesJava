@@ -35,13 +35,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Arquivo {
+    //Classe que fornece utilidades para manipulação de arquivos de texto puro
 
-    /*
-    *   Classe que fornece utilidades para manipulação de arquivos de texto puro
-    *   Autor: Mateus Garcia
-    *   github.com/NaturesProphet
+    /**
+    *   Faz a leitura de um arquivo específico. Use este método
+    *   para recuperar SOMENTE a primeira linha de um arquivo
+    *   @return Retorna a primeira Linha do arquivo designado
+    *   @author Mateus Garcia
+    *   @param path caminho para o arquivo especificado
+    *   @throws IOException
+    *   
      */
-    //lê a primeira linha de um arquivo informado pelo parâmetro
     public static String getFirstLine(String path) throws IOException {
         if (AreYouHere(path)) {
             BufferedReader buffRead = new BufferedReader(new FileReader(path));
@@ -54,7 +58,18 @@ public class Arquivo {
         }
     }
 
-    //escreve o conteúdo da String no arquivo, informados via parâmetro
+    /**
+    *   Este método SOBREESCREVE todo o conteúdo do arquivo
+    *   designado e escreve SOMENTE o conteúdo da String informada.
+    *   Utilize este método com muito cuidado, uma vez que ele apaga
+    *   o conteúdo anterior do arquivo.
+    * 
+    *   @author Mateus Garcia
+    *   @param path caminho para o arquivo especificado
+    *   @param content Uma String com o conteúdo que se deseja gravar no arquivo
+    *   @throws IOException
+    *   
+     */
     public static void setFileContentAsSingleLine(String path, String content)
             throws IOException {
         if (AreYouHere(path)) {
@@ -67,8 +82,21 @@ public class Arquivo {
         }
     }
 
-    //este método lê as linhas de um arquivo e retorna uma lista de Strings
-    //recebe o caminho para o arquivo como parâmetro
+    
+    /**
+    *   Este método faz a leitura completa do arquivo especificado,
+    *   linha-a-linha, gera um ArrayList de String, contendo todas
+    *   as linhas do arquivo respeitando suas posições, mantendo
+    *   o index do ArrayList igual ao numero da linha, começando por 0.
+    *   Use este método se você quer uma lista com as linhas do arquivo
+    * 
+    *   @return Retorna um ArrayList contendo todas as linhas do arquivo
+    *   @author Mateus Garcia
+    *   @param path caminho para o arquivo especificado
+    *   @throws IOException
+    *   @throws FileNotFoundException
+    *   
+     */
     public static ArrayList<String> getAllLines(String patch)
             throws FileNotFoundException, IOException {
         if (AreYouHere(patch)) {
@@ -88,9 +116,29 @@ public class Arquivo {
                     + "que não foi encontrado no local especificado");
         }
     }
+    
 
-    //retorna uma linha no arquivo que comece com a String informada.
-    //a string retornada começa depois do final + 1 espaço do codigo
+    
+    /**
+    *   Faz a leitura de um arquivo específico buscando por uma linha 
+    *   que começe com a String informada como Codigo.
+    *   Se o arquivo contiver mais de uma linha que começe com o
+    *   Código informado, ele lancará uma Exception informando
+    *   esta ocorrência.
+    *   Este método foi desenvolvido para ser utilizado para leitura de
+    *   Arquivos de configuração genéricos.
+    *   Utilize este método se você deseja ler o conteúdo de apenas uma
+    *   linha específica dentro de um arquivo e sabe como esta linha se inicia.
+    * 
+    *   @return Retorna apenas a linha que começa com o código informado
+    *   @author Mateus Garcia
+    *   @param path caminho para o arquivo especificado
+    *   @param codigo String identica ao inicio da linha desejada.
+    *   @throws IOException
+    *   @throws Exception Caso mais de uma linha for encontrada com o código
+    *   @throws FileNotFoundException
+    *   
+     */
     public static String getLineByCode(String path, String codigo)
             throws FileNotFoundException, IOException, Exception {
         if (AreYouHere(path)) {
@@ -130,9 +178,37 @@ public class Arquivo {
                     + "que não foi encontrado no local especificado");
         }
     }
-
-    // configura o texto de uma linha que comece com o codigo informado
-    // oposto do método acima ^
+    
+    
+    
+    /**
+    *   Configura o texto de uma linha que comece com o codigo informado.
+    *   Este método é similar e oposto ao método getLineByCode. 
+    *   O método varre o arquivo designado, localizando a linha que começa
+    *   com o código informado. Ao localizar esta linha, o conteudo da mesma
+    *   é SOBREESCRITO mantendo-se apenas o código inicial, somado do
+    *   conteúdo informado no parametro.
+    *   Assim como o getLineByCode, este método também foi desenvolvido
+    *   para trabalhar com arquivos de configuração genéricos, salvando
+    *   as configurações do usuário para serem recuperadas mais tarde
+    *   pelo getLineByCode.
+    *   #####################################<br>
+    *   <strong>CUIDADO</strong><br>
+    *   #####################################<br>
+    *   Este método SOBREESCREVE o conteúdo da linha designada pelo código.
+    *   Utilize este método com cautela.
+    *   Use este método se você deseja configurar o conteúdo de uma linha
+    *   especifica do arquivo
+    * 
+    *   @author Mateus Garcia
+    *   @param path caminho para o arquivo especificado
+    *   @param Code String identica ao inicio da linha desejada
+    *   @param insert String com o conteúdo a ser posicionado após o Code
+    *   @throws IOException Se o arquivo contiver mais de uma linha com o Codigo
+    *   informado, uma IOException será lançada informando esta ocorrência.
+    *   
+    *   
+     */
     public static void setLineByCode(String path, String Code, String insert) throws IOException {
         if (AreYouHere(path)) {
 
@@ -165,7 +241,16 @@ public class Arquivo {
         }
     }
 
-    //verifica se o arquivo especificado existe
+    
+    
+     /**
+    *   Use este método para verificar se um arquivo existe ou não.
+    *   @return Retorna um boolean. Se o arquivo existe, retorna TRUE, caso
+    *   contrário, retorna FALSE.
+    *   @author Mateus Garcia
+    *   @param path caminho para o arquivo especificado
+    *   
+     */
     public static boolean AreYouHere(String patch) {
         File file = new File(patch);
         return file.exists();
@@ -175,6 +260,28 @@ public class Arquivo {
     //util para mecanismos de comentario em arquivo, para que o sistema
     //ignore as linhas que começam com um determinado caractere, 
     //como o '#', no caso do linux
+    
+    
+    
+    
+     /**
+    *   Este método faz uma simples leitura de uma String (uma linha que foi 
+    *   retirada de um arquivo qualquer por outros métodos) e verifica
+    *   qual é o primeiro caractere válido desta linha.<br>
+    *   Este método foi desenvolvido para auxiliar a leitura de arquivos 
+    *   de configuração genéricos, com o objetivo de saber se a linha
+    *   analisada é um comentário ou uma linha de código válida.<br>
+    *   O método que invocar este, saberá se a linha é um comentário.<br>
+    *   Utilize este método se você deseja saber se a linha informada é 
+    *   um comentário.
+    * 
+    *   @param linha String representando uma linha de um arquivo qualquer
+    *   @param coment Char indicador de comentários
+    *   @return Retorna um boolean informando se a linha se inicia com
+    *   o caractere informado. TRUE se sim, FALSE se não.
+    *   @author Mateus Garcia
+    *   
+     */
     public static boolean IsAComent(String linha, char coment) {
         for (int i = 0; i < linha.length(); i++) {
             if (linha.charAt(i) != ' ') {
@@ -184,7 +291,21 @@ public class Arquivo {
         return false;
     }
 
-    //adiciona uma linha especificada no final do arquivo especificado
+    
+    
+    
+    
+     /**
+    *   Método que ADICIONA uma linha no FINAL do arquivo informado.
+    *   Utilize este método para escrever um conteúdo no final de um 
+    *   arquivo sem alterar o conteúdo anterior.
+    *   @author Mateus Garcia
+    *   @param path caminho para o arquivo especificado
+    *   @param texto String com o conteúdo a ser escrito no final do arquivo.
+    *   @throws IOException
+    *   @throws FileNotFoundException caso o arquivo informado não exista
+    *   
+     */
     public static void AddThisLineAtEOF(String path, String texto) throws IOException {
         if (AreYouHere(path)) {
             FileWriter fw = new FileWriter(path, true);
@@ -199,7 +320,18 @@ public class Arquivo {
 
     }
 
-    //adiciona uma linha no começo do arquivo
+    
+     /**
+    *   Método que ADICIONA uma linha no INICIO do arquivo informado.
+    *   Utilize este método para escrever um conteúdo no começo de um 
+    *   arquivo sem alterar o conteúdo adiante.
+    *   @author Mateus Garcia
+    *   @param path caminho para o arquivo especificado
+    *   @param texto String com o conteúdo a ser escrito no começo do arquivo.
+    *   @throws IOException
+    *   @throws FileNotFoundException caso o arquivo informado não exista
+    *   
+     */
     public static void AddThisLineAtBOF(String path, String texto) throws IOException {
         if (AreYouHere(path)) {
             ArrayList<String> conteudoanterior = getAllLines(path);
@@ -214,7 +346,20 @@ public class Arquivo {
         }
     }
 
-    //este método retorna a primeira string sem espaços encontrada numa linha
+    
+    /**
+    *   Método que retorna o primeiro conteúdo válido de uma String.<br>
+    *   Este método elimina possíveis espaços antes e depois da primeira
+    *   sequência de caractéres válida encontrada na linha, e termina no
+    *   primeiro espaço encontrado após o primeiro conteúdo.<br>
+    *   Utilize este método se você deseja saber qual é a primeira palavra 
+    *   de uma frase.
+    *   @author Mateus Garcia
+    *   @param linha Frase ou linha a ser analisada
+    *   @return retorna a primeira palavra ou sequência de caracteres válida
+    *   encontrada na linha.
+    *   
+     */
     public static String getFirstStringFromLine(String linha) {
         StringBuilder sb = new StringBuilder(10);
         if (!linha.isEmpty()) {
@@ -238,6 +383,25 @@ public class Arquivo {
     }
 
     //metodo para sobreescrever um arquivo com a lista de strings informada
+    
+    
+    /**
+    *   ##########################<br>
+    *   CUIDADO! METODO PERIGOSO<br>
+    *   ##########################<br>
+    *   Este Método SOBREESCREVE TODO O CONTEÚDO ANTERIOR do arquivo indicado,
+    *   substituindo o conteúdo anterior pelo conteúdo da lista de Strings
+    *   informada.<br>
+    *   Utilize este método para resetar um arquivo com as linhas default
+    *   informadas na lista.
+    *   @author Mateus Garcia
+    *   @param path caminho para o arquivo especificado
+    *   @param Content ArrayList de Strings contendo a lista de linhas a serem
+    *   escritas no arquivo
+    *   @throws IOException caso o arquivo não seja encontrado ou não tenha 
+    *   permissões de escrita
+    * 
+     */
     public static void OverWrite(String path, ArrayList<String> Content) throws IOException {
         if (AreYouHere(path)) {
             setFileContentAsSingleLine(path, Content.get(0));
