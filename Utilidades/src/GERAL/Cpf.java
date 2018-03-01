@@ -125,6 +125,8 @@ public class Cpf {
      * Utilize este método para armazenar CPFs no banco de dados de maneira mais
      * eficiente.
      *
+     * @author mgarcia
+     * @param CPF String de CPF no formato formal ddd.ddd.ddd-vv
      * @return String contendo o CPF puro com 11 dígitos sem pontuação.
      */
     public static String getIntCPF(String CPF) {
