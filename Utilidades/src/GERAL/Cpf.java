@@ -29,7 +29,10 @@ public class Cpf {
      * analisando se a cadeia de caracteres é uma sequência de numeros iguais e
      * calculando os dois ultimos digitos.<br>
      * Utilize este método para validar campos de CPF que contenham apenas os 11
-     * dígitos sem os pontos e traços.
+     * dígitos sem os pontos e traços.<br>
+     * Este método é uma adaptação do original da DevMedia disponível em 
+     * https://www.devmedia.com.br/validando-o-cpf-em-uma-aplicacao-java/22097
+     * acessado em 01/03/2018
      *
      * @author DevMedia, adaptado por mgarcia.
      * @param CPF String com o CPF contendo somente os 11 dígitos
