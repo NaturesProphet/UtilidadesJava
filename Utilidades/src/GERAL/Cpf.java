@@ -30,7 +30,7 @@ public class Cpf {
      * calculando os dois ultimos digitos.<br>
      * Utilize este método para validar campos de CPF que contenham apenas os 11
      * dígitos sem os pontos e traços.<br>
-     * Este método é uma adaptação do original da DevMedia disponível em 
+     * Este método é uma adaptação do original da DevMedia disponível em
      * https://www.devmedia.com.br/validando-o-cpf-em-uma-aplicacao-java/22097
      * acessado em 01/03/2018
      *
@@ -119,4 +119,20 @@ public class Cpf {
         }
     }
 
+    /**
+     * Este método retira de um CPF formatado uma string puramente numérica de
+     * 11 dígitos. <br>
+     * Utilize este método para armazenar CPFs no banco de dados de maneira mais
+     * eficiente.
+     *
+     * @return String contendo o CPF puro com 11 dígitos sem pontuação.
+     */
+    public static String getIntCPF(String CPF) {
+        if (CPF.length() == 14) {
+            return (CPF.substring(0, 3) + CPF.substring(4, 7)
+                    + CPF.substring(8, 11) + CPF.substring(12, 14));
+        } else {
+            return "CPF inválido";
+        }
+    }
 }
